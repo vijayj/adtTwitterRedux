@@ -1,6 +1,7 @@
 package com.codepath.twitter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,6 +18,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class TimeLineActivity extends Activity {
 
 	private ListView lvTimeline;
+	private List<Tweet> tweets = new ArrayList<Tweet>();
+	private TweetAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +27,38 @@ public class TimeLineActivity extends Activity {
 		setContentView(R.layout.activity_time_line);
 
 		setupViews();
-		loadTweets();
+		adapter = new TweetAdapter(getApplicationContext(), tweets);
+		lvTimeline.setAdapter(adapter);
+		EndlessScrollListener endlessScrollListener = new EndlessScrollListener() {
+			
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				// TODO Auto-generated method stub
+				Tweet tweet = findOldestTweet();
+				long maxId = tweet == null ? -1 : tweet.getId();
+				loadTweets(maxId);
+				
+			}
+
+			private Tweet findOldestTweet() {	
+				return adapter.getItem(adapter.getCount()-1);
+			}
+		};
+		lvTimeline.setOnScrollListener(endlessScrollListener);
+		loadTweets(-1);
 	}
 
-	private void loadTweets() {		
-		RestClientApp.getRestClient().getHomeTimeline(0, new JsonHttpResponseHandler(){
+	private void loadTweets(final long maxId) {		
+		RestClientApp.getRestClient().getHomeTimeline(maxId, new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(JSONArray arrayOfTweets) {
 //				Log.d("DEBUG Success",arrayOfTweets.toString());
 				ArrayList<Tweet> tweets = Tweet.fromJSONArray(arrayOfTweets);
-				TweetAdapter adapter = new TweetAdapter(getApplicationContext(), tweets);
-				lvTimeline.setAdapter(adapter);
+				//remove the first tweet as that is the last tweet
+				if(tweets.get(0).getId() == maxId){
+					tweets.remove(0);
+				}
+				adapter.addAll(tweets);			
 			}
 
 			@Override

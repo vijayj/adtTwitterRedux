@@ -55,10 +55,15 @@ public class RestClient extends OAuthBaseClient {
 	 * i.e client.post(apiUrl, params, handler);
 	 */
 
-	public void getHomeTimeline(int page, AsyncHttpResponseHandler handler) {
+	public void getHomeTimeline(long maxId, AsyncHttpResponseHandler handler) {
+		final String tweetCount = "25";
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
-		params.put("page", String.valueOf(page));
+		if(maxId != -1)
+			params.put("max_id", String.valueOf(maxId));
+//				
+//		params.put("page", String.valueOf(page));
+		params.put("count", tweetCount);
 		getClient().get(apiUrl, params, handler);
 	}
 	

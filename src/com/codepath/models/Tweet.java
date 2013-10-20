@@ -10,12 +10,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Tweet {
-	String text;
-	boolean retweeted;
-	String hashtags;
-	long id;
-	String createdAt;
-//	User user;
+	public static ArrayList<Tweet> fromJSONArray(JSONArray results) {
+		ArrayList<Tweet> images = new ArrayList<Tweet>(results.length());
+		for (int i = 0; i < results.length(); i++) {
+			try {
+				images.add(new Tweet(results.getJSONObject(i)));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return images;
+	}
+	
+	private String text;
+	private boolean retweeted;
+	private String hashtags;
+	
+	private long id;
+	private String createdAt;
+
+	//	User user;
 	private User user;
 
 	public Tweet(JSONObject jsonObject) throws JSONException {
@@ -31,18 +46,42 @@ public class Tweet {
 		}
 				
 	}
+	
+	public String getCreatedAt() {
+		return createdAt;
+	}
 
-	public static ArrayList<Tweet> fromJSONArray(JSONArray results) {
-		ArrayList<Tweet> images = new ArrayList<Tweet>(results.length());
-		for (int i = 0; i < results.length(); i++) {
-			try {
-				images.add(new Tweet(results.getJSONObject(i)));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return images;
+	public String getHandle() {
+		return "@" + user.getHandle();
+	}
+
+	public String getHashtags() {
+		return hashtags;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	
+	public Date getTimestamp() {
+		return parseTwitterDate(createdAt);
+	}
+
+	public  User getUser(){
+		return user;
+	}
+	
+	public String getUserImage() {
+		return user.getProfileImageUrl();
+	}
+
+	public String getUserName() {
+		return user.getName();
 	}
 	
 	private Date parseTwitterDate(String createdAt)
@@ -58,46 +97,13 @@ public class Tweet {
 			return new Date();
 		}
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Tweet [text=" + text + ", retweeted=" + retweeted + ", id="
 				+ id + ", createdAt=" + createdAt + "]";
 	}
 
-	public String getUserName() {
-		return user.getName();
-	}
-
-	public String getHandle() {
-		return "@" + user.getHandle();
-	}
-
-	public String getUserImage() {
-		return user.getProfileImageUrl();
-	}
-
-	
-	public String getText() {
-		return text;
-	}
-
-	public String getHashtags() {
-		return hashtags;
-	}
-	
-	public Date getTimestamp() {
-		return parseTwitterDate(createdAt);
-	}
-
-	public String getCreatedAt() {
-		return createdAt;
-	}
-	
-	public  User getUser(){
-		return user;
-	}
-	
 }
 
 class TwitterMeta {
