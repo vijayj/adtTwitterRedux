@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivUserImage"
-        android:layout_toRightOf="@+id/ivUserImage"
-        android:ems="10"
+        android:layout_toRightOf="@+id/ivUserImage"    
+        android:layout_marginRight="10sp"    
         android:hint="@string/hello_world" >
 
         <requestFocus />
@@ -35,7 +35,7 @@
         android:layout_alignTop="@+id/tvUserName"
         android:layout_marginTop="18dp"
         android:layout_toRightOf="@+id/ivUserImage"
-        android:ems="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:hint="@string/hello_world" />
 
     <TextView
@@ -47,5 +47,14 @@
         android:layout_toRightOf="@+id/tvUserName"
         android:ems="10"
         android:hint="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvText"
+        android:layout_below="@+id/tvText"
+        android:hint="@string/hello_world"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

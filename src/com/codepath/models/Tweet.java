@@ -1,6 +1,9 @@
 package com.codepath.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +38,20 @@ public class Tweet {
 		}
 		return images;
 	}
+	
+	private Date parseTwitterDate(String createdAt)
+	{
+	    final String TWITTER = "EEE, dd MMM yyyy HH:mm:ss Z";
+	    SimpleDateFormat sf = new SimpleDateFormat(TWITTER, Locale.ENGLISH);
+	    sf.setLenient(true);
+	    try {
+			return sf.parse(createdAt);
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new Date();
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -52,6 +69,18 @@ public class Tweet {
 	
 	public String getText() {
 		return text;
+	}
+
+	public String[] getHashtags() {
+		return hashtags;
+	}
+	
+	public Date getTimestamp() {
+		return parseTwitterDate(createdAt);
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
 	}
 	
 }
