@@ -12,18 +12,24 @@ import org.json.JSONObject;
 public class Tweet {
 	String text;
 	boolean retweeted;
-	String[] hashtags;
+	String hashtags;
 	long id;
 	String createdAt;
 //	User user;
+	private User user;
 
 	public Tweet(JSONObject jsonObject) throws JSONException {
 		id = jsonObject.getLong("id");
 		retweeted = jsonObject.getBoolean("retweeted");
 		text = jsonObject.getString("text");
 		createdAt = jsonObject.getString("created_at"); //can be converted to date and formatted
-//		user = new User(jsonObject.get("user"));
-//		hashtags = jsonObject.getJSONObject("entities").getJSONArray("hashtags").map { |e| e }
+		user = new User(jsonObject.getJSONObject("user"));
+		JSONArray hashtagsArray = jsonObject.getJSONObject("entities").getJSONArray("hashtags");
+		hashtags = "";
+		for (int i = 0; i < hashtagsArray.length(); i++) {
+			hashtags += hashtagsArray.getString(i) + " ";
+		}
+				
 	}
 
 	public static ArrayList<Tweet> fromJSONArray(JSONArray results) {
@@ -41,8 +47,8 @@ public class Tweet {
 	
 	private Date parseTwitterDate(String createdAt)
 	{
-	    final String TWITTER = "EEE, dd MMM yyyy HH:mm:ss Z";
-	    SimpleDateFormat sf = new SimpleDateFormat(TWITTER, Locale.ENGLISH);
+	    final String TWITTER = "EEE MMM dd HH:mm:ss Z yyyy";
+	    SimpleDateFormat sf = new SimpleDateFormat(TWITTER, Locale.US);
 	    sf.setLenient(true);
 	    try {
 			return sf.parse(createdAt);
@@ -60,18 +66,23 @@ public class Tweet {
 	}
 
 	public String getUserName() {
-		return "Vijay Jambu";
+		return user.getName();
 	}
 
 	public String getHandle() {
-		return "@hannn";
+		return "@" + user.getHandle();
 	}
+
+	public String getUserImage() {
+		return user.getProfileImageUrl();
+	}
+
 	
 	public String getText() {
 		return text;
 	}
 
-	public String[] getHashtags() {
+	public String getHashtags() {
 		return hashtags;
 	}
 	
@@ -83,14 +94,10 @@ public class Tweet {
 		return createdAt;
 	}
 	
-}
-
-class User {
-	String name;
-	String profileImageUrl;
-	String location;
-	String profileBackgroundImageUrl;
-	String screenName;
+	public  User getUser(){
+		return user;
+	}
+	
 }
 
 class TwitterMeta {

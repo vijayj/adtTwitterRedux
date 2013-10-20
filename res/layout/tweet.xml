@@ -5,15 +5,18 @@
 
     <ImageView
         android:id="@+id/ivUserImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        
         android:contentDescription="@string/profilePic"
-        android:maxHeight="73dp"
-        android:maxWidth="73dp"
+        android:maxHeight="48dp"
+        android:maxWidth="48dp"        
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_launcher" />
 
     <TextView
@@ -22,9 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivUserImage"
         android:layout_toRightOf="@+id/ivUserImage"    
-        android:layout_marginRight="10sp"    
+        android:layout_marginRight="10sp"    	
         android:hint="@string/hello_world" >
-
         <requestFocus />
     </TextView>
 
@@ -47,7 +49,7 @@
         android:layout_toRightOf="@+id/tvUserName"
         android:ems="10"
         android:hint="@string/hello_world" />
-
+         
     <TextView
         android:id="@+id/tvTimestamp"
         android:layout_width="wrap_content"

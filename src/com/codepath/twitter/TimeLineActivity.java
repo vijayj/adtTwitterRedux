@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.codepath.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
+
+import com.codepath.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimeLineActivity extends Activity {
 
@@ -31,7 +31,7 @@ public class TimeLineActivity extends Activity {
 		RestClientApp.getRestClient().getHomeTimeline(0, new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(JSONArray arrayOfTweets) {
-				Log.d("DEBUG Success",arrayOfTweets.toString());
+//				Log.d("DEBUG Success",arrayOfTweets.toString());
 				ArrayList<Tweet> tweets = Tweet.fromJSONArray(arrayOfTweets);
 				TweetAdapter adapter = new TweetAdapter(getApplicationContext(), tweets);
 				lvTimeline.setAdapter(adapter);
