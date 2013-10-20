@@ -46,6 +46,10 @@ public class TimeLineActivity extends Activity {
 		};
 		lvTimeline.setOnScrollListener(endlessScrollListener);
 		loadTweets(-1);
+		//TODO(VJ) - just store the tweets from this request
+		//also optionally from pull to refresh
+		//we can store raw tweets as json  or as complete objects
+		//simplest thing is to store all tweets ? - should we then make network calls when we are at the end ?
 	}
 
 	private void loadTweets(final long maxId) {		
