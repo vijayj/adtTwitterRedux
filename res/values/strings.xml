@@ -8,5 +8,10 @@
     <string name="title_activity_photos">Flickr Photos</string>
     <string name="title_activity_time_line">TimeLineActivity</string>
     <string name="profilePic">profile</string>
+    <string name="tweet_compose">Compose</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <string name="Tweet">Tweet</string>
+    <string name="cancel">Cancel</string>
+    <string name="tweetComposeHint">Tweet here</string>
 
 </resources>

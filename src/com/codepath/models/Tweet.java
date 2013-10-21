@@ -1,5 +1,6 @@
 package com.codepath.models;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +10,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Tweet {
+public class Tweet implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 568082762384648159L;
+
+	public Tweet() {
+		super();
+	}
+
 	public static ArrayList<Tweet> fromJSONArray(JSONArray results) {
 		ArrayList<Tweet> images = new ArrayList<Tweet>(results.length());
 		for (int i = 0; i < results.length(); i++) {
@@ -38,7 +48,7 @@ public class Tweet {
 		retweeted = jsonObject.getBoolean("retweeted");
 		text = jsonObject.getString("text");
 		createdAt = jsonObject.getString("created_at"); //can be converted to date and formatted
-		user = new User(jsonObject.getJSONObject("user"));
+//		user = new User(jsonObject.getJSONObject("user"));
 		JSONArray hashtagsArray = jsonObject.getJSONObject("entities").getJSONArray("hashtags");
 		hashtags = "";
 		for (int i = 0; i < hashtagsArray.length(); i++) {
@@ -72,16 +82,16 @@ public class Tweet {
 		return parseTwitterDate(createdAt);
 	}
 
-	public  User getUser(){
-		return user;
-	}
-	
+//	public  User getUser(){
+//		return user;
+//	}
+//	
 	public String getUserImage() {
-		return user.getProfileImageUrl();
+		return "aa.jpg" ;//user.getProfileImageUrl();
 	}
 
 	public String getUserName() {
-		return user.getName();
+		return "aa" ; //user.getName();
 	}
 	
 	private Date parseTwitterDate(String createdAt)

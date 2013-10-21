@@ -1,9 +1,15 @@
 package com.codepath.models;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8002704386966004800L;
 	private String name;
 	private String profileImageUrl;
 	@SuppressWarnings("unused")
@@ -12,6 +18,11 @@ public class User {
 	private String profileBackgroundImageUrl;
 	private String screenName;
 	
+	
+	public User() {
+		super();
+	}
+
 	public User(JSONObject userJSON) throws JSONException {
 		name = userJSON.getString("name");
 		screenName =  userJSON.getString("screen_name");
