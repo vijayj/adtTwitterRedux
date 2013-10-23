@@ -5,20 +5,28 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User implements Serializable{
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name = "Users")
+public class User extends Model implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8002704386966004800L;
+	private static final long serialVersionUID = 899970261137379160L;
+	/**
+	 * 
+	 */
+	
+	@Column(name = "Name")
 	private String name;
-	private String profileImageUrl;
-	@SuppressWarnings("unused")
-	private String location;
-	@SuppressWarnings("unused")
-	private String profileBackgroundImageUrl;
+	@Column(name = "ProfileImage")
+	private String profileImageUrl;	
+	@Column(name = "ScreenName")
 	private String screenName;
 	
-	
+		
 	public User() {
 		super();
 	}
@@ -27,8 +35,8 @@ public class User implements Serializable{
 		name = userJSON.getString("name");
 		screenName =  userJSON.getString("screen_name");
 		profileImageUrl =  userJSON.getString("profile_image_url");
-		profileBackgroundImageUrl =  userJSON.getString("profile_background_image_url");
-		location = userJSON.getString("location");
+//		profileBackgroundImageUrl =  userJSON.getString("profile_background_image_url");
+//		location = userJSON.getString("location");
 	}
 
 	public String getName() {

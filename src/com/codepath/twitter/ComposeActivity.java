@@ -76,7 +76,7 @@ public class ComposeActivity extends Activity {
 	private void onSuccessfulPost(Tweet tweet) {
 		Intent i = new Intent(this, TimeLineActivity.class);
 		i.putExtra("tweet", tweet);
-		setResult(RESULT_OK);
+		setResult(RESULT_OK, i);
     	this.finish();
 		
 	}

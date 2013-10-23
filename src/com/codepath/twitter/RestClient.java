@@ -60,7 +60,7 @@ public class RestClient extends OAuthBaseClient {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
 		if(maxId != -1)
-			params.put("max_id", String.valueOf(maxId));
+			params.put("max_id", String.valueOf(maxId-1));
 //				
 //		params.put("page", String.valueOf(page));
 		params.put("count", tweetCount);
