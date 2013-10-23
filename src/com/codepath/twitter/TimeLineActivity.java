@@ -1,7 +1,6 @@
 package com.codepath.twitter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -16,19 +15,21 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
-import com.activeandroid.query.Select;
 import com.codepath.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
+
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class TimeLineActivity extends Activity {
 
 	public static final int COMPOSE_REQUEST_CODE = 2001;
-	private ListView lvTimeline;
+	private PullToRefreshListView lvTimeline;
 	private List<Tweet> tweets = new ArrayList<Tweet>();
 	private TweetAdapter adapter;
-	private boolean savedTweets = false;
+	private boolean initalLoad = true;
+	private boolean refreshing = false;
 
 	private void loadTweets(final long maxId) {
 		RestClientApp.getRestClient().getHomeTimeline(maxId,
@@ -53,13 +54,25 @@ public class TimeLineActivity extends Activity {
 						// Log.d("DEBUG Success",arrayOfTweets.toString());
 						ArrayList<Tweet> tweets = Tweet
 								.fromJSONArray(arrayOfTweets);
-						if (!savedTweets) {
-							saveTweets(tweets);
-							savedTweets = true;
-						}
-						adapter.addAll(tweets);
+						newlyLoadedTweets(tweets);						
 					}
 				});
+	}
+
+	protected void newlyLoadedTweets(ArrayList<Tweet> tweets) {
+		if(refreshing){
+			saveTweets(tweets);
+			adapter.clear();
+			adapter.addAll(tweets);
+			refreshing = false;
+			lvTimeline.onRefreshComplete();
+		} else if (initalLoad){
+			saveTweets(tweets);
+			adapter.addAll(tweets);
+			initalLoad = false;
+		} else {
+			adapter.addAll(tweets);	
+		}		
 	}
 
 	@Override
@@ -73,6 +86,9 @@ public class TimeLineActivity extends Activity {
 		EndlessScrollListener endlessScrollListener = new EndlessScrollListener() {
 
 			private Tweet findOldestTweet() {
+				if(adapter.isEmpty()){
+					return null;
+				}
 				return adapter.getItem(adapter.getCount() - 1);
 			}
 
@@ -86,14 +102,22 @@ public class TimeLineActivity extends Activity {
 			}
 		};
 		lvTimeline.setOnScrollListener(endlessScrollListener);
+		
+		lvTimeline.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshTweets();
+            }
+        });
 
-		loadOldTweets();
+		showSavedTweets();
 		loadTweets(-1);
-		// TODO(VJ) - just store the tweets from this request
-		// also optionally from pull to refresh
-		// we can store raw tweets as json or as complete objects
-		// simplest thing is to store all tweets ? - should we then make network
-		// calls when we are at the end ?
+	}
+
+	protected void refreshTweets() {
+		refreshing = true;
+        loadTweets(-1);
+		
 	}
 
 	protected void saveTweets(ArrayList<Tweet> tweets) {
@@ -109,7 +133,7 @@ public class TimeLineActivity extends Activity {
 		}
 	}
 
-	private void loadOldTweets() {
+	private void showSavedTweets() {
 		// tweets = new Select().from(Tweet.class).execute();
 		// adapter.addAll(tweets);
 	}
@@ -148,7 +172,7 @@ public class TimeLineActivity extends Activity {
 	}
 
 	private void setupViews() {
-		lvTimeline = (ListView) findViewById(R.id.lvTimeline);
+		lvTimeline = (PullToRefreshListView) findViewById(R.id.lvTimeline);
 		// adapter = new TweetAdapter(this, resource, objects)
 		// lvTimeline.setAdapter(adapter)
 	}
