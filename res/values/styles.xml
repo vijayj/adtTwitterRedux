@@ -25,7 +25,8 @@
     
      
     <style name="Theme.Tweeter.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">        
-        <item name="android:background">@drawable/gradient_box</item>        
-    </style>
+        <item name="android:background">@drawable/gradient_box</item>       
+	    <item name="android:backgroundStacked">@drawable/action_bar_stackable</item>
+   </style>
 
 </resources>

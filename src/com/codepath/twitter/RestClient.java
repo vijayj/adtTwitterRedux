@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -25,7 +26,7 @@ public class RestClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
 	// // Change this, base API URL
 	public static final String REST_URL = "https://api.twitter.com/1.1";
-	
+
 	public static final String REST_CONSUMER_KEY = "gOk0L8vmk5phMBhzCkrkw";
 	public static final String REST_CONSUMER_SECRET = "Htf3pVxWZLUyKE6Af3xY41EQiOmu8PvYEHhEHdnE";
 
@@ -59,18 +60,32 @@ public class RestClient extends OAuthBaseClient {
 		final String tweetCount = "25";
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
-		if(maxId != -1)
-			params.put("max_id", String.valueOf(maxId-1));
-//				
-//		params.put("page", String.valueOf(page));
+		if (maxId != -1)
+			params.put("max_id", String.valueOf(maxId - 1));
+		//
+		// params.put("page", String.valueOf(page));
 		params.put("count", tweetCount);
 		getClient().get(apiUrl, params, handler);
 	}
-	
+
 	public void postTweet(String body, AsyncHttpResponseHandler handler) {
-	    String apiUrl = getApiUrl("statuses/update.json");
-	    RequestParams params = new RequestParams();
-	    params.put("status", body);
-	    getClient().post(apiUrl, params, handler);
+		String apiUrl = getApiUrl("statuses/update.json");
+		RequestParams params = new RequestParams();
+		params.put("status", body);
+		getClient().post(apiUrl, params, handler);
+	}
+
+	public void getMentions(long maxId, AsyncHttpResponseHandler handler) {		
+		final String tweetCount = "25";
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		if (maxId != -1)
+			params.put("max_id", String.valueOf(maxId - 1));
+		//
+		// params.put("page", String.valueOf(page));
+		params.put("count", tweetCount);		
+		params.put("include_rts", "1");
+		getClient().get(apiUrl, params, handler);
+
 	}
 }
