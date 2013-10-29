@@ -3,6 +3,7 @@ package com.codepath.twitter.fragments;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 
 import com.codepath.models.Tweet;
 import com.codepath.twitter.EndlessScrollListener;
+import com.codepath.twitter.ProfileActivity;
 import com.codepath.twitter.R;
 import com.codepath.twitter.TweetAdapter;
 
@@ -41,9 +43,11 @@ public abstract class TweetsListFragment extends Fragment{
 			public void onClick(View v) {
 				//for time being assume view is image view
 				ImageView iView = (ImageView) v;				
-				String userId = iView.getTag().toString();
-//				Intent i =  
-//				startActivity(i)
+				String screenName = iView.getTag().toString();
+
+				Intent i = new Intent(getActivity(),ProfileActivity.class);
+				i.putExtra("screen_name", screenName);
+				startActivity(i);
 //				launchUserProfile(userId);				
 			}
 		};	

@@ -53,7 +53,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		ImageView imgView = (ImageView) itemView.findViewById(R.id.ivUserImage);
 	
-		imgView.setTag(tweet.getUser().getUserId());
+		imgView.setTag(tweet.getUser().getHandle());
 		imgView.setOnClickListener(listener);
 		imgView.setImageResource(android.R.color.transparent);
 		
