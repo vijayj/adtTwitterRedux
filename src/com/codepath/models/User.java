@@ -32,6 +32,7 @@ public class User extends Model implements Serializable{
 	private String followsCount;
 	private String description;
 	private String userId;
+	private String tweetsCount;
 	
 		
 	public User() {
@@ -45,6 +46,7 @@ public class User extends Model implements Serializable{
 		profileImageUrl =  userJSON.getString("profile_image_url");
 		followersCount =  userJSON.getString("followers_count");
 		followsCount =  userJSON.getString("friends_count");
+		tweetsCount = userJSON.getString("statuses_count");
 		description =  userJSON.getString("description");
 //		profileBackgroundImageUrl =  userJSON.getString("profile_background_image_url");
 //		location = userJSON.getString("location");
@@ -80,6 +82,10 @@ public class User extends Model implements Serializable{
 
 	public String getUserId() {
 		return userId;
+	}
+
+	public String getTweetsCount() {
+		return tweetsCount;
 	}
 	
 }

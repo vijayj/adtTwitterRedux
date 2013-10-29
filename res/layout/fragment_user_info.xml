@@ -22,7 +22,7 @@
         android:layout_marginLeft="29dp"
         android:layout_toRightOf="@+id/ivProfilePic"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/ivProfilePic"
@@ -34,26 +34,6 @@
         android:src="@drawable/ic_home" />
 
     <TextView
-        android:id="@+id/tvFollows"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvFollowers"
-        android:layout_alignBottom="@+id/tvFollowers"
-        android:layout_toRightOf="@+id/tvByline"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/tvFollowers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvByline"
-        android:layout_marginTop="14dp"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/tvByline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,6 +41,36 @@
         android:layout_below="@+id/tvScreenName"
         android:layout_marginTop="16dp"
         android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tvTweetsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvFollowers"
+        android:layout_alignBottom="@+id/tvFollowers"
+        android:layout_centerHorizontal="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tvFollows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvTweetsCount"
+        android:layout_alignBottom="@+id/tvTweetsCount"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tvFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvByline"
+        android:layout_marginTop="15dp"
+        android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
