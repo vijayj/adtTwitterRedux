@@ -7,7 +7,6 @@ import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -67,6 +66,19 @@ public class RestClient extends OAuthBaseClient {
 		params.put("count", tweetCount);
 		getClient().get(apiUrl, params, handler);
 	}
+	
+
+	public void getUserTimeline(String screenName, long maxId, AsyncHttpResponseHandler handler) {
+		final String tweetCount = "25";
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
+		RequestParams params = new RequestParams();
+		if (maxId != -1)
+			params.put("max_id", String.valueOf(maxId - 1));
+		
+		params.put("count", tweetCount);
+		params.put("screen_name", screenName);
+		getClient().get(apiUrl, params, handler);
+	}
 
 	public void postTweet(String body, AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/update.json");
@@ -75,7 +87,7 @@ public class RestClient extends OAuthBaseClient {
 		getClient().post(apiUrl, params, handler);
 	}
 
-	public void getMentions(long maxId, AsyncHttpResponseHandler handler) {		
+	public void getMentions(long maxId, AsyncHttpResponseHandler handler) {
 		final String tweetCount = "25";
 		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
 		RequestParams params = new RequestParams();
@@ -83,9 +95,21 @@ public class RestClient extends OAuthBaseClient {
 			params.put("max_id", String.valueOf(maxId - 1));
 		//
 		// params.put("page", String.valueOf(page));
-		params.put("count", tweetCount);		
+		params.put("count", tweetCount);
 		params.put("include_rts", "1");
 		getClient().get(apiUrl, params, handler);
 
+	}
+	
+	public void getUserProfile(String screenName, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("users/show.json");
+		RequestParams params = new RequestParams();
+		params.put("screen_name", screenName);
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getMyInfo(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("account/verify_credentials.json");
+		getClient().get(apiUrl, null, handler);
 	}
 }

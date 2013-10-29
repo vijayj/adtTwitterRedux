@@ -21,7 +21,8 @@ public class HomeTimelineFragment extends TweetsListFragment {
 		loadTweets(-1);
 	}
 	
-	private void loadTweets(final long maxId) {
+	@Override
+	protected void loadTweets(final long maxId) {
 		RestClientApp.getRestClient().getHomeTimeline(maxId,
 				new JsonHttpResponseHandler() {
 

@@ -31,6 +31,7 @@ public class TimeLineActivity extends FragmentActivity implements TabListener {
 	private boolean initalLoad = true;
 	private boolean refreshing = false;
 	private TweetsListFragment tweetsListFragment;
+	private HomeTimelineFragment homeTimelineFragment;
 
 //	private void loadTweets(final long maxId) {
 //		RestClientApp.getRestClient().getHomeTimeline(maxId,
@@ -141,12 +142,23 @@ public class TimeLineActivity extends FragmentActivity implements TabListener {
 		startActivityForResult(i, COMPOSE_REQUEST_CODE);
 	}
 
+	public void showMyProfile(MenuItem mi) {
+		Intent i = new Intent(this, ProfileActivity.class);
+
+		i.putExtra("screen_name", "");
+
+		startActivity(i);
+//		startActivityForResult(i, COMPOSE_REQUEST_CODE);
+	}
+
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == COMPOSE_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 
 				Tweet tweet = (Tweet) data.getSerializableExtra("tweet");
+				homeTimelineFragment.getAdapter().insert(tweet,0);
 //				adapter.insert(tweet, 0);
 				// TextView tvResult =
 				// (TextView)findViewById(R.id.txtDisplayResult);
@@ -208,7 +220,10 @@ public class TimeLineActivity extends FragmentActivity implements TabListener {
 		android.support.v4.app.FragmentTransaction fts = manager.beginTransaction(); 
 		
 		if(tab.getTag() == "HomeTimelineFragment"){
-			fts.replace(R.id.frame_layout, new HomeTimelineFragment());
+			//TODO(VJ) - this is so messy - need to find a better way to organize fragments and handles
+			//also event handling code is super messy - 
+			homeTimelineFragment = new HomeTimelineFragment();
+			fts.replace(R.id.frame_layout, homeTimelineFragment);
 		} else if (tab.getTag() == "MentionsFragment") {
 			fts.replace(R.id.frame_layout, new MentionsFragment());
 		}

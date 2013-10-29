@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -18,14 +19,15 @@ import com.ocpsoft.pretty.time.PrettyTime;
 
 
 public class TweetAdapter extends ArrayAdapter<Tweet> {
-
 	private PrettyTime prettyTime;
+	private OnClickListener listener;
 
-	public TweetAdapter(Context context, List<Tweet> tweets) {
-		super(context,0, tweets);	
-		prettyTime = new PrettyTime();
+	public TweetAdapter(Context context, List<Tweet> tweets, OnClickListener listener) {
+		super(context,0, tweets);
+		this.listener = listener;	
+		prettyTime = new PrettyTime();		
 	}
-
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tweet tweet = this.getItem(position);
@@ -41,6 +43,7 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 		setView(itemView, R.id.tvUserName, tweet.getUserName(), Color.parseColor("#555555"));
 		setView(itemView, R.id.tvHandle, tweet.getHandle(), Color.BLACK);								
 		setView(itemView, R.id.tvTimestamp, prettyTime.format(tweet.getTimestamp()), Color.GRAY);
+				
 		setTweetContent(tweet, itemView);
 						
 		return itemView;		
@@ -49,10 +52,12 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 	private void setImage(View itemView, Tweet tweet) {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		ImageView imgView = (ImageView) itemView.findViewById(R.id.ivUserImage);
+	
+		imgView.setTag(tweet.getUser().getUserId());
+		imgView.setOnClickListener(listener);
 		imgView.setImageResource(android.R.color.transparent);
 		
-//		Log.d("DEBUG image url", tweet.getUserImage());
-        imageLoader.displayImage(tweet.getUserImage(), imgView);
+        imageLoader.displayImage(tweet.getUserImage(), imgView);        
 	}
 
 	private void setTweetContent(Tweet tweet, View itemView) {

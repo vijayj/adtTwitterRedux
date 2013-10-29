@@ -12,11 +12,13 @@ import com.codepath.models.Tweet;
 import com.codepath.twitter.RestClientApp;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class MentionsFragment extends TweetsListFragment {
+public class UserTimelineFragment extends TweetsListFragment {
+
+	private String screenName;
 
 	@Override
 	protected void loadTweets(final long maxId) {
-		RestClientApp.getRestClient().getMentions(maxId,
+		RestClientApp.getRestClient().getUserTimeline(screenName, maxId,
 				new JsonHttpResponseHandler() {
 
 					@Override
@@ -65,6 +67,7 @@ public class MentionsFragment extends TweetsListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		screenName =  getArguments().getString("screen_name");
 		loadTweets(-1);
 	}
 

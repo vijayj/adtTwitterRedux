@@ -13,5 +13,8 @@
     <string name="Tweet">Tweet</string>
     <string name="cancel">Cancel</string>
     <string name="tweetComposeHint">Tweet here</string>
+    <string name="my_profile">Profile</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="profile_pic">Picture</string>
 
 </resources>

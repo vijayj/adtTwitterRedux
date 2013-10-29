@@ -21,10 +21,17 @@ public class User extends Model implements Serializable{
 	
 	@Column(name = "Name")
 	private String name;
+	
 	@Column(name = "ProfileImage")
 	private String profileImageUrl;	
+	
 	@Column(name = "ScreenName")
 	private String screenName;
+	
+	private String followersCount;
+	private String followsCount;
+	private String description;
+	private String userId;
 	
 		
 	public User() {
@@ -33,8 +40,12 @@ public class User extends Model implements Serializable{
 
 	public User(JSONObject userJSON) throws JSONException {
 		name = userJSON.getString("name");
+		userId =  userJSON.getString("id");
 		screenName =  userJSON.getString("screen_name");
 		profileImageUrl =  userJSON.getString("profile_image_url");
+		followersCount =  userJSON.getString("followers_count");
+		followsCount =  userJSON.getString("friends_count");
+		description =  userJSON.getString("description");
 //		profileBackgroundImageUrl =  userJSON.getString("profile_background_image_url");
 //		location = userJSON.getString("location");
 	}
@@ -50,6 +61,25 @@ public class User extends Model implements Serializable{
 	
 	public String getHandle() {
 		return screenName;
+	}
+
+	public String getByline() {
+		// TODO Auto-generated method stub
+		return description;
+	}
+
+	public String getFollowers() {
+		// TODO Auto-generated method stub
+		return followersCount;
+	}
+
+	public String getFollows() {
+		// TODO Auto-generated method stub
+		return followsCount;
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 	
 }
