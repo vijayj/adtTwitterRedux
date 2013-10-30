@@ -42,25 +42,7 @@ public class MentionsFragment extends TweetsListFragment {
 					}
 				});
 	}
-	
-	protected void newlyLoadedTweets(ArrayList<Tweet> tweets) {
-		getAdapter().addAll(tweets);
-//		if(refreshing){
-//			saveTweets(tweets);
-//			adapter.clear();
-//			adapter.addAll(tweets);
-//			refreshing = false;
-//			lvTimeline.onRefreshComplete();
-//		} else if (initalLoad){
-//			tweetsListFragment.getAdapter().addAll(tweets);
-//			saveTweets(tweets);
-//			adapter.addAll(tweets);
-//			initalLoad = false;
-//		} else {			
-//			adapter.addAll(tweets);	
-//		}		
-	}
-	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

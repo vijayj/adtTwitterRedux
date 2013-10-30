@@ -19,11 +19,13 @@ import com.codepath.twitter.R;
 import com.codepath.twitter.TweetAdapter;
 
 import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public abstract class TweetsListFragment extends Fragment{
 
 	private TweetAdapter adapter;
 	private PullToRefreshListView lvTimeline;
+	private boolean refreshing = false;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -34,8 +36,35 @@ public abstract class TweetsListFragment extends Fragment{
 		lvTimeline = (PullToRefreshListView) getActivity().findViewById(R.id.lvTimeline);
 		lvTimeline.setAdapter(adapter);		
 		lvTimeline.setOnScrollListener(getEndlessScrollListener());
+		lvTimeline.setOnRefreshListener(new OnRefreshListener() {
+          @Override
+          public void onRefresh() {
+        	  refreshing = true;
+              loadTweets(-1);
+          }
+      });
 	}
 	
+	public boolean isRefreshing(){
+		return refreshing;
+	}
+	
+	
+	protected void onRefreshComplete(){
+		refreshing = false;
+		lvTimeline.onRefreshComplete();
+	}
+	
+	protected void newlyLoadedTweets(ArrayList<Tweet> tweets) {
+		if(isRefreshing()){
+			getAdapter().clear();
+			getAdapter().addAll(tweets);
+			onRefreshComplete();
+		} else {
+			getAdapter().addAll(tweets);			
+		}
+	}
+
 	
 	private OnClickListener getOnClickListener(){
 		return new OnClickListener(){

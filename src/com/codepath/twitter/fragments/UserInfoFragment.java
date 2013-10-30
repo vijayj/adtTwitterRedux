@@ -84,14 +84,19 @@ public class UserInfoFragment extends Fragment {
 	private void refreshViews(User user) {
 		setTextView(R.id.tvScreenName, user.getName());
 		setTextView(R.id.tvByline, user.getByline());
-		setTextView(R.id.tvFollowers, user.getFollowers());
-		setTextView(R.id.tvFollows, user.getFollows());
-		setTextView(R.id.tvTweetsCount, user.getTweetsCount());
+		setTextView(R.id.tvFollowers, user.getFollowers(), "Followers");
+		setTextView(R.id.tvFollows, user.getFollows(), "Follows");
+		setTextView(R.id.tvTweetsCount, user.getTweetsCount(), "Tweets");
 		setImage(R.id.ivProfilePic, user.getProfileImageUrl());
 		
 		getActivity().getActionBar().setTitle("@" + user.getHandle());
 	}
 	
+	private void setTextView(int viewHandle, String data, String suffix) {
+		TextView screenName =  (TextView)getActivity().findViewById(viewHandle);
+		screenName.setText(data +  " " + suffix);		
+	}
+
 	private void setTextView(int viewHandle, String data) {
 		TextView screenName =  (TextView)getActivity().findViewById(viewHandle);
 		screenName.setText(data);

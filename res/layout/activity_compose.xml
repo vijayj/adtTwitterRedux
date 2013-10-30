@@ -14,8 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="18dp"
-        android:layout_marginRight="35dp"
+        android:background="@drawable/button_shape"
         android:onClick="cancel"
+        android:textColor="#FFFFFF"
+        android:width="100dp"        
         android:text="@string/cancel" />
 
     <Button
@@ -27,7 +29,7 @@
         android:layout_alignTop="@+id/cancel"
         android:background="@drawable/button_shape"
         android:onClick="postTweet"
-        android:shadowColor="#0D41A8"
+        android:shadowColor="#A8A8A8"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
