@@ -86,7 +86,7 @@ public class UserInfoFragment extends Fragment {
 		setTextView(R.id.tvByline, user.getByline());
 		setTextView(R.id.tvFollowers, user.getFollowers(), "Followers");
 		setTextView(R.id.tvFollows, user.getFollows(), "Follows");
-		setTextView(R.id.tvTweetsCount, user.getTweetsCount(), "Tweets");
+		setTextView(R.id.tvTweetCount, user.getTweetsCount(), "Tweets");
 		setImage(R.id.ivProfilePic, user.getProfileImageUrl());
 		
 		getActivity().getActionBar().setTitle("@" + user.getHandle());

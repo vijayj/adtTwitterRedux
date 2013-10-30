@@ -50,8 +50,17 @@ public class UserTimelineFragment extends TweetsListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		screenName =  getArguments().getString("screen_name");
+		screenName =  getArguments().getString("screen_name");	
+	}
+
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
 		loadTweets(-1);
 	}
+	
+	
 
 }

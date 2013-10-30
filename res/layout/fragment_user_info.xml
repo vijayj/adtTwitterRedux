@@ -5,22 +5,12 @@
     android:background="@drawable/user_profile_shape" >
 
     <TextView
-        android:id="@+id/tvByline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvScreenName"
-        android:layout_below="@+id/tvScreenName"
-        android:layout_marginTop="16dp"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
-
-    <TextView
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/ivProfilePic"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLargeInverse" />
 
@@ -30,6 +20,9 @@
         android:layout_height="64dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/profile_pic"
         android:contentDescription="@string/profile_pic"
         android:maxHeight="64dp"
         android:maxWidth="64dp"
@@ -37,39 +30,43 @@
         android:src="@drawable/ic_home" />
 
     <TextView
-        android:id="@+id/tvTweetsCount"
-        android:layout_width="match_parent"
+        android:id="@+id/tvByline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvFollowers"
-        android:layout_alignBottom="@+id/tvFollowers"
-        android:layout_alignLeft="@+id/tvByline"
-        android:layout_alignRight="@+id/tvScreenName"
-        android:background="@drawable/profile_text_view_shape"
+        android:layout_below="@+id/ivProfilePic"
+        android:layout_toRightOf="@+id/ivProfilePic"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+    <TextView
+        android:id="@+id/tvTweetCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvFollows"
+        android:layout_alignBottom="@+id/tvFollows"
+        android:layout_alignParentRight="true"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+    <TextView
+        android:id="@+id/tvFollows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ivProfilePic"
+        android:layout_below="@+id/tvByline"
+        android:layout_marginTop="41dp"
+        android:layout_toLeftOf="@+id/tvScreenName"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
     <TextView
         android:id="@+id/tvFollowers"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvByline"
-        android:layout_marginTop="17dp"
-        android:layout_toLeftOf="@+id/tvByline"
-        android:background="@drawable/profile_text_view_shape"
+        android:layout_alignBaseline="@+id/tvTweetCount"
+        android:layout_alignBottom="@+id/tvTweetCount"
+        android:layout_centerHorizontal="true"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <TextView
-        android:id="@+id/tvFollows"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvTweetsCount"
-        android:layout_alignBottom="@+id/tvTweetsCount"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/tvTweetsCount"
-        android:background="@drawable/profile_text_view_shape"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
 </RelativeLayout>
