@@ -17,53 +17,55 @@ import com.codepath.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ocpsoft.pretty.time.PrettyTime;
 
-
 public class TweetAdapter extends ArrayAdapter<Tweet> {
 	private PrettyTime prettyTime;
 	private OnClickListener listener;
 
-	public TweetAdapter(Context context, List<Tweet> tweets, OnClickListener listener) {
-		super(context,0, tweets);
-		this.listener = listener;	
-		prettyTime = new PrettyTime();		
+	public TweetAdapter(Context context, List<Tweet> tweets,
+			OnClickListener listener) {
+		super(context, 0, tweets);
+		this.listener = listener;
+		prettyTime = new PrettyTime();
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Tweet tweet = this.getItem(position);
 		View itemView;
-		if(convertView == null){
+		if (convertView == null) {
 			LayoutInflater inflator = LayoutInflater.from(getContext());
-			itemView =  inflator.inflate(R.layout.tweet,null,false);
+			itemView = inflator.inflate(R.layout.tweet, null, false);
 		} else {
 			itemView = convertView;
 		}
-		
+
 		setImage(itemView, tweet);
-		setView(itemView, R.id.tvUserName, tweet.getUserName(), Color.parseColor("#555555"));
-		setView(itemView, R.id.tvHandle, tweet.getHandle(), Color.BLACK);								
-		setView(itemView, R.id.tvTimestamp, prettyTime.format(tweet.getTimestamp()), Color.GRAY);
-				
+		setView(itemView, R.id.tvUserName, tweet.getUserName(),
+				Color.parseColor("#555555"));
+		setView(itemView, R.id.tvHandle, tweet.getHandle(), Color.BLACK);
+		setView(itemView, R.id.tvTimestamp,
+				prettyTime.format(tweet.getTimestamp()), Color.GRAY);
+
 		setTweetContent(tweet, itemView);
-						
-		return itemView;		
+
+		return itemView;
 	}
 
 	private void setImage(View itemView, Tweet tweet) {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		ImageView imgView = (ImageView) itemView.findViewById(R.id.ivUserImage);
-	
+
 		imgView.setTag(tweet.getUser().getHandle());
 		imgView.setOnClickListener(listener);
 		imgView.setImageResource(android.R.color.transparent);
-		
-        imageLoader.displayImage(tweet.getUserImage(), imgView);        
+
+		imageLoader.displayImage(tweet.getUserImage(), imgView);
 	}
 
 	private void setTweetContent(Tweet tweet, View itemView) {
-		//TODO(VJ) - find a way to make the links clickable
+		// TODO(VJ) - find a way to make the links clickable
 		TextView view = (TextView) itemView.findViewById(R.id.tvText);
-		view.setText(Html.fromHtml(tweet.getText()));	
+		view.setText(Html.fromHtml(tweet.getText()));
 		view.setTextColor(Color.BLACK);
 	}
 
@@ -71,6 +73,6 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 		TextView view = (TextView) itemView.findViewById(id);
 		view.setText(value);
 		view.setTextColor(color);
-	}	
+	}
 
 }

@@ -2,6 +2,7 @@ package com.codepath.twitter;
 
 import android.content.Context;
 
+import com.codepath.oauth.OAuthBaseClient;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -18,6 +19,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class RestClientApp extends com.activeandroid.app.Application {
 	private static Context context;
 	
+    public static RestClient getRestClient() {
+    	return (RestClient) OAuthBaseClient.getInstance(RestClient.class, RestClientApp.context);
+    }
+    
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,9 +36,5 @@ public class RestClientApp extends com.activeandroid.app.Application {
             .defaultDisplayImageOptions(defaultOptions)
             .build();
         ImageLoader.getInstance().init(config);
-    }
-    
-    public static RestClient getRestClient() {
-    	return (RestClient) RestClient.getInstance(RestClient.class, RestClientApp.context);
     }
 }

@@ -22,28 +22,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class UserInfoFragment extends Fragment {
 	private String screenName;
 
-	//
-	// private TweetAdapter adapter;
-	// private PullToRefreshListView lvTimeline;
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		loadProfileInfo(screenName);
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_user_info, container, false);
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);		
-		screenName =  getArguments().getString("screen_name");
-	}
-
 	private void loadProfileInfo(String screenName) {
 		JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
 
@@ -66,19 +44,37 @@ public class UserInfoFragment extends Fragment {
 				User user;
 				try {
 					user = new User(profileInfo);
-					refreshViews(user);					
+					refreshViews(user);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		};
-		
-	    if(screenName.isEmpty()){
-	    	RestClientApp.getRestClient().getMyInfo(handler);
-	    } else {
-	    	RestClientApp.getRestClient().getUserProfile(screenName, handler);
-	    }
+
+		if (screenName.isEmpty()) {
+			RestClientApp.getRestClient().getMyInfo(handler);
+		} else {
+			RestClientApp.getRestClient().getUserProfile(screenName, handler);
+		}
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		loadProfileInfo(screenName);
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		screenName = getArguments().getString("screen_name");
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_user_info, container, false);
 	}
 
 	private void refreshViews(User user) {
@@ -88,27 +84,26 @@ public class UserInfoFragment extends Fragment {
 		setTextView(R.id.tvFollows, user.getFollows(), "Follows");
 		setTextView(R.id.tvTweetCount, user.getTweetsCount(), "Tweets");
 		setImage(R.id.ivProfilePic, user.getProfileImageUrl());
-		
+
 		getActivity().getActionBar().setTitle("@" + user.getHandle());
 	}
-	
-	private void setTextView(int viewHandle, String data, String suffix) {
-		TextView screenName =  (TextView)getActivity().findViewById(viewHandle);
-		screenName.setText(data +  " " + suffix);		
-	}
 
-	private void setTextView(int viewHandle, String data) {
-		TextView screenName =  (TextView)getActivity().findViewById(viewHandle);
-		screenName.setText(data);
-	}
-	
 	private void setImage(int handle, String url) {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		ImageView imgView = (ImageView) getActivity().findViewById(handle);
 		imgView.setImageResource(android.R.color.transparent);
-		
-//		Log.d("DEBUG image url", tweet.getUserImage());
-        imageLoader.displayImage(url, imgView);
+
+		imageLoader.displayImage(url, imgView);
+	}
+
+	private void setTextView(int viewHandle, String data) {
+		TextView screenName = (TextView) getActivity().findViewById(viewHandle);
+		screenName.setText(data);
+	}
+
+	private void setTextView(int viewHandle, String data, String suffix) {
+		TextView screenName = (TextView) getActivity().findViewById(viewHandle);
+		screenName.setText(data + " " + suffix);
 	}
 
 }

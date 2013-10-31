@@ -15,13 +15,6 @@ import android.util.Log;
 public class HomeTimelineFragment extends TweetsListFragment {
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		loadTweets(-1);
-	}
-	
-	@Override
 	protected void loadTweets(final long maxId) {
 		RestClientApp.getRestClient().getHomeTimeline(maxId,
 				new JsonHttpResponseHandler() {
@@ -42,11 +35,16 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
 					@Override
 					public void onSuccess(JSONArray arrayOfTweets) {
-						// Log.d("DEBUG Success",arrayOfTweets.toString());
 						ArrayList<Tweet> tweets = Tweet
 								.fromJSONArray(arrayOfTweets);
-						newlyLoadedTweets(tweets);						
+						newlyLoadedTweets(tweets);
 					}
 				});
-	}	
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		loadTweets(-1);
+	}
 }

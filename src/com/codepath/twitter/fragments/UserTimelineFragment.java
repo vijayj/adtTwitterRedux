@@ -40,27 +40,22 @@ public class UserTimelineFragment extends TweetsListFragment {
 						// Log.d("DEBUG Success",arrayOfTweets.toString());
 						ArrayList<Tweet> tweets = Tweet
 								.fromJSONArray(arrayOfTweets);
-						newlyLoadedTweets(tweets);						
+						newlyLoadedTweets(tweets);
 					}
 				});
 	}
-	
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		screenName =  getArguments().getString("screen_name");	
-	}
-
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		//
 		super.onActivityCreated(savedInstanceState);
 		loadTweets(-1);
 	}
-	
-	
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		//
+		super.onCreate(savedInstanceState);
+		screenName = getArguments().getString("screen_name");
+	}
 }

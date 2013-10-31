@@ -13,9 +13,9 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		
+
 		String screenName = getIntent().getStringExtra("screen_name");
-		
+
 		UserInfoFragment userInfo = new UserInfoFragment();
 		userInfo.setArguments(getIntent().getExtras());
 
@@ -24,14 +24,15 @@ public class ProfileActivity extends FragmentActivity {
 
 		UserTimelineFragment userTimeline = new UserTimelineFragment();
 		userTimeline.setArguments(bundle);
-		
+
 		android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-		android.support.v4.app.FragmentTransaction fts = manager.beginTransaction();
-		
+		android.support.v4.app.FragmentTransaction fts = manager
+				.beginTransaction();
+
 		fts.replace(R.id.profile_frame, userInfo);
 		fts.replace(R.id.user_timeline_frame, userTimeline);
 
-		fts.commit();				
+		fts.commit();
 	}
 
 	@Override

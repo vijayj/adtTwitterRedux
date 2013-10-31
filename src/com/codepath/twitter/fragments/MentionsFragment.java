@@ -35,7 +35,6 @@ public class MentionsFragment extends TweetsListFragment {
 
 					@Override
 					public void onSuccess(JSONArray arrayOfTweets) {
-						// Log.d("DEBUG Success",arrayOfTweets.toString());
 						ArrayList<Tweet> tweets = Tweet
 								.fromJSONArray(arrayOfTweets);
 						newlyLoadedTweets(tweets);						
@@ -45,7 +44,6 @@ public class MentionsFragment extends TweetsListFragment {
 		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		loadTweets(-1);
 	}

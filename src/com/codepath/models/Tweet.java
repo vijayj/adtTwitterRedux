@@ -11,20 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 
-@Table(name = "Tweets")
 public class Tweet extends Model implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2741996578273880160L;
-
-	public Tweet() {
-		super();
-	}
 
 	public static ArrayList<Tweet> fromJSONArray(JSONArray results) {
 		ArrayList<Tweet> images = new ArrayList<Tweet>(results.length());
@@ -39,26 +32,24 @@ public class Tweet extends Model implements Serializable {
 		return images;
 	}
 
-	@Column(name = "Text")
 	private String text;
 
-	@Column(name = "Hashtags")
 	private String hashtags;
 
-	@Column(name = "TwitterId")
 	private long twitterId;
 
-	@Column(name = "CreatedAt")
 	private String createdAt;
 
-	@Column(name = "User")
 	private User user;
+
+	public Tweet() {
+		super();
+	}
 
 	public Tweet(JSONObject jsonObject) throws JSONException {
 		twitterId = jsonObject.getLong("id");
 		text = jsonObject.getString("text");
-		createdAt = jsonObject.getString("created_at"); // can be converted to
-														// date and formatted
+		createdAt = jsonObject.getString("created_at"); 
 		user = new User(jsonObject.getJSONObject("user"));
 		JSONArray hashtagsArray = jsonObject.getJSONObject("entities")
 				.getJSONArray("hashtags");
@@ -66,7 +57,6 @@ public class Tweet extends Model implements Serializable {
 		for (int i = 0; i < hashtagsArray.length(); i++) {
 			hashtags += hashtagsArray.getString(i) + " ";
 		}
-
 	}
 
 	public String getCreatedAt() {
@@ -81,16 +71,16 @@ public class Tweet extends Model implements Serializable {
 		return hashtags;
 	}
 
-	public Long getTwitterId() {
-		return twitterId;
-	}
-
 	public String getText() {
 		return text;
 	}
 
 	public Date getTimestamp() {
 		return parseTwitterDate(createdAt);
+	}
+
+	public Long getTwitterId() {
+		return twitterId;
 	}
 
 	public User getUser() {
